@@ -1,0 +1,19 @@
+body {
+  background-color: #FFEEDB;
+
+}
+
+h1 {
+  color: #A53860;
+  font-family: "Emblema One";
+}
+
+h2 {
+  color: #3C6E71;
+}
+
+.emblema-one-regular {
+  font-family: "Emblema One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
