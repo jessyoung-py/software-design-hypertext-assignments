@@ -1,0 +1,72 @@
+body {
+    background: linear-gradient(to bottom right, hotpink, cyan, limegreen, gold, deeppink, turquoise, purple, orangered);
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+}
+h1 {
+    font-size: 50px;
+    color: red;
+    text-shadow: 5px 5px yellow;
+    transition: transform 0.3s ease-in-out;
+}
+h1:hover{
+    transform: scale(10);
+}
+marquee {
+    font-size: 30px;
+    color: blue;
+}
+.blink {
+    animation: colorCycle 1s linear infinite;
+    font-weight: bold;
+}
+
+@keyframes colorCycle {
+    0% { color: red; }
+    25% { color: blue; }
+    50% { color: green; }
+    75% { color: yellow; }
+    100% { color: red; }
+}
+
+img:hover {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+table{
+    width: 100%;
+    table-layout: fixed;
+    font-size: 50px;
+}
+
+th, td{
+    border: 10px groove yellow;
+    background-color: aqua;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.foodimgs{
+    width: 500px;
+    text-align: left;
+}
+
+.td-text{
+    color:darkorchid;
+    transition: transform 0.3s ease-in-out;
+    display: inline-block;
+}
+.td-text:hover {
+    animation: spin-scale 1s linear infinite;
+}
+
+@keyframes spin-scale {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(3) rotate(180deg); }
+    100% { transform: scale(5) rotate(360deg); }
+}

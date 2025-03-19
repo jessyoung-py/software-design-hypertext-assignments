@@ -1,0 +1,18 @@
+html, body {
+    font-family: 'Courier New', Courier, monospace;
+    padding: 25px;
+  }
+  section {
+    color: #8B0000;
+    width: 475px;
+    border: 2px solid black;
+    padding-left: 30px;
+    margin-top: 10px;
+  }
+
+  #about {
+    margin-bottom: 35px;
+  }
+  canvas {
+    display: block;
+  }
