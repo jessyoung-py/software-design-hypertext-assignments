@@ -1,19 +1,17 @@
 * {
     box-sizing: border-box;
   }
-  .roboto-<uniquifier> {
-    font-family: "Roboto", sans-serif;
+  .inter-<uniquifier> {
+    font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 100;
     font-style: normal;
-    font-variation-settings:
-      "wdth" 100;
   }
 
   html {
     height: 100%;
     width: 100%;
-    font-family: "Roboto";
+    font-family: "Inter", sans-serif;
     font-weight: 200;
   }
   h1{
