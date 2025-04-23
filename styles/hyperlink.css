@@ -1,0 +1,140 @@
+.entry-page{
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.entry-container{
+    display: flex;
+    height: 400px;
+    width: 400px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 1;
+    flex-wrap: wrap;
+}
+
+.stage-container{
+    display: flex;
+    height: 400px;
+    width: 400px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 1;
+    max-width: 90vw;
+    word-wrap: break-word;
+}
+
+.journal{
+    max-width: 80%;
+    text-align: center;
+    white-space: normal;
+    word-break: break-word;
+}
+
+#denial{
+    background-image: url(../images/denial_background.jpg);
+    background-size: cover;       
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#denial_h1{
+    font-family: "Edu AU VIC WA NT Arrows", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;  
+}
+
+
+#denial_p{
+    font-family: "Emblema One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#anger{
+    background-image: url(../images/angry_background.jpg);
+    background-size: cover;       
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#anger_h1{
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#anger_p{
+    font-family: "Yuji Boku", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#bargain{
+    background-image: url(../images/bargain_background.jpg);
+    background-size: cover;       
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#bargain_h1, #bargain_p{
+    font-family: "Indie Flower", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#depression{
+    background-image: url(../images/depression_background.jpg);
+    background-size: cover;       
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#depression_h1{
+    font-family: "Courier Prime", monospace;
+    font-weight: 700;
+    font-style: italic;
+}
+
+#depression_p{
+    font-family: "Courier Prime", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#acceptance{
+    background-image: url(../images/acceptance_background.jpg);
+    background-size: cover;       
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#acceptance_h1{
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+#acceptance_p{
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
