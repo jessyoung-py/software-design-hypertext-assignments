@@ -1,0 +1,372 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables */
+:root {
+    --room-color: #f0e6d9;
+    --door-color: #8b5e3c;
+    --door-frame-color: #6e4c30;
+    --accent-color: #7c9885;
+    --text-color: #4a4a4a;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Global styles */
+html {
+    height: 100%;
+    overflow: auto;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--room-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Ensure z-index works properly */
+.content-container {
+    position: relative;
+    height: 300vh; /* Space for scrolling */
+}
+
+/* Entrance styles */
+.entrance {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--room-color);
+    z-index: 2;
+    perspective: 2000px; /* Increased perspective for more dramatic effect */
+}
+
+.door-frame {
+    height: 90vh;
+    width: 60vw;
+    max-width: 600px;
+    background-color: var(--door-frame-color);
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    transform-style: preserve-3d;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+    will-change: transform;
+}
+
+.door {
+    height: 100%;
+    width: 100%;
+    background-color: var(--door-color);
+    border-radius: 8px 8px 0 0;
+    position: absolute;
+    transform-origin: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+.door::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 8px 8px 0 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.door[style*="rotateY(-85deg)"]::before {
+    opacity: 0.8;
+}
+
+.door-handle {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    width: 20px;
+    height: 60px;
+    background-color: #b8860b;
+    border-radius: 10px;
+    transform: translateY(-50%) translateZ(2px);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.door-handle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: #b8860b;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.door-text {
+    color: #f0e6d9;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 2rem;
+    max-width: 80%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transform: translateZ(1px);
+}
+
+/* Therapy room styles */
+.therapy-room {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--room-color);
+    background-image: url('../images/therapy-room.jpg'); /* Add the therapy room image background */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Ensure the image doesn't repeat */
+    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    overflow-y: auto;
+}
+
+/* Add semi-transparent overlay to ensure text is readable */
+.therapy-room::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(240, 230, 217, 0.3); /* Make it more transparent */
+    z-index: -1;
+}
+
+.therapy-room.visible {
+    opacity: 1;
+    visibility: visible;
+    background-image: url('../images/therapy-room.jpg'); /* Ensure the background image is loaded when visible */
+}
+
+/* Header styles */
+header {
+    padding: 2rem;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 2px 15px var(--shadow-color);
+}
+
+h1 {
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.subtle-text {
+    color: #666;
+    font-style: italic;
+}
+
+/* Main content styles */
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.journal-section {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    position: relative;
+    margin: 2rem auto;
+    backdrop-filter: blur(5px); /* Add a subtle blur effect behind the journal section */
+}
+
+h2 {
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+.prompt {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+/* Footer styles */
+footer {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: var(--text-color);
+    text-align: center;
+    padding: 1.5rem;
+    width: 100%;
+    box-shadow: 0 -2px 15px var(--shadow-color);
+    margin-top: 2rem;
+}
+
+.quote {
+    font-style: italic;
+    color: var(--accent-color);
+}
+
+/* Calming message styles */
+.calming-message {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(124, 152, 133, 0.9);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    text-align: center;
+}
+
+/* Interactive elements container */
+.interactive-layer {
+    position: relative;
+    z-index: 100;
+    transform: translateZ(0);
+    backface-visibility: visible;
+}
+
+/* Prevent 3D transforms from affecting interaction */
+body, html {
+    transform-style: flat;
+    backface-visibility: visible;
+}
+
+/* Mobile optimizations to ensure inputs work on touch devices */
+@media (max-width: 768px) {
+    #journal-entry {
+        -webkit-appearance: none;
+        font-size: 16px; /* Prevent iOS zoom */
+        padding: 12px;
+    }
+    
+    .calming-button {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* New styles for floating journal button and modal */
+#fixed-journal-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: 80px;
+    height: 80px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#fixed-journal-container:hover {
+    transform: scale(1.1);
+}
+
+#journal-icon {
+    color: white;
+    font-size: 30px;
+}
+
+#journal-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+#journal-content {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#journal-title {
+    color: var(--accent-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#journal-text {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    resize: vertical;
+}
+
+#journal-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.journal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#save-btn {
+    background: var(--accent-color);
+    color: white;
+}
+
+#close-btn {
+    background: #ddd;
+    color: #333;
+}
+
+/* Override any properties that might interfere */
+#journal-modal * {
+    transform: none !important;
+    backface-visibility: visible !important;
+    perspective: none !important;
+    transform-style: flat !important;
+} 

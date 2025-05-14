@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background: white;
+            margin: 100px auto;
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Modal Test</h1>
+    <p>Testing if basic button and modal functionality works.</p>
+    
+    <button onclick="openModal()">Open Modal</button>
+    
+    <div id="modal">
+        <div class="modal-content">
+            <h2>Test Modal</h2>
+            <textarea id="testText" placeholder="Type something here..."></textarea>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+    
+    <script>
+        // Very simple test functions
+        function openModal() {
+            document.getElementById('modal').style.display = 'block';
+            console.log('Modal opened');
+            alert('Modal opened');
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            console.log('Modal closed');
+            alert('Modal closed with text: ' + document.getElementById('testText').value);
+        }
+        
+        // Log that script is loaded
+        console.log('Test script loaded');
+        alert('Test page loaded');
+    </script>
+</body>
+</html>

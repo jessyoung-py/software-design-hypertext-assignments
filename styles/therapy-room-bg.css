@@ -1,0 +1,140 @@
+/* Therapy Room Background CSS */
+.therapy-room-bg {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #e8e3dc; /* Light beige background */
+    overflow: hidden;
+}
+
+/* Window */
+.window {
+    position: absolute;
+    right: 10%;
+    top: 15%;
+    width: 30%;
+    height: 50%;
+    background-color: #d5e7ed; /* Light blue for window */
+    border: 12px solid #8a8784; /* Gray border */
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Plants */
+.plant-left {
+    position: absolute;
+    left: 5%;
+    bottom: 10%;
+    width: 12%;
+    height: 40%;
+    background-color: transparent;
+}
+
+.plant-leaves {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background-color: #6b8e6b; /* Green for leaves */
+    border-radius: 50% 50% 0 0;
+    box-shadow: 
+        20px 10px 0 -5px #6b8e6b,
+        -20px 10px 0 -5px #6b8e6b,
+        10px -10px 0 -5px #6b8e6b,
+        -10px -10px 0 -5px #6b8e6b;
+}
+
+.plant-pot {
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    width: 70%;
+    height: 25%;
+    background-color: #d0bfa0; /* Beige pot */
+    border-radius: 5px 5px 0 0;
+}
+
+/* Cactus */
+.cactus {
+    position: absolute;
+    right: 15%;
+    bottom: 10%;
+    width: 8%;
+    height: 20%;
+    background-color: #6b8e6b; /* Green cactus */
+    border-radius: 30% 30% 0 0;
+}
+
+/* Chairs */
+.chair {
+    position: absolute;
+    width: 15%;
+    height: 25%;
+    background-color: #92adc2; /* Light blue chairs */
+    border-radius: 50% 50% 10px 10px;
+}
+
+.chair-left {
+    left: 25%;
+    bottom: 20%;
+}
+
+.chair-right {
+    right: 25%;
+    bottom: 20%;
+}
+
+.chair-pillow {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    height: 20%;
+    background-color: #f0f5f5; /* Light pillow */
+    border-radius: 5px;
+}
+
+/* Coffee table */
+.coffee-table {
+    position: absolute;
+    left: 50%;
+    bottom: 20%;
+    transform: translateX(-50%);
+    width: 15%;
+    height: 10%;
+    background-color: #b39b88; /* Wood color */
+    border-radius: 50%;
+}
+
+/* Wall art */
+.wall-art {
+    position: absolute;
+    top: 25%;
+    width: 15%;
+    height: 20%;
+    background-color: white;
+    border: 10px solid #777;
+}
+
+.wall-art-left {
+    left: 35%;
+}
+
+.wall-art-right {
+    left: 55%;
+}
+
+/* Rug */
+.rug {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 15%;
+    background-color: #f0e6db; /* Light beige */
+    border-radius: 50%;
+    box-shadow: 
+        0 0 0 10px #e5d9cc,
+        0 0 0 20px #f0e6db;
+} 

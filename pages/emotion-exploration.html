@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Your Emotions</title>
+    <link rel="stylesheet" href="../styles/final-project.css">
+    <link rel="stylesheet" href="../styles/emotion-exploration.css">
+    <!-- P5.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+</head>
+<body class="emotion-page">
+    <div class="container">
+        <header>
+            <h1>Explore Your Emotions</h1>
+            <p class="subtle-text">Let's dive deeper into what you're feeling right now.</p>
+            <button id="back-to-home" class="back-btn">← Write a new jounal entry</button>
+        </header>
+
+        <div id="journal-display" class="journal-display">
+            <h3>Your Journal Entry</h3>
+            <div id="journal-content-display" class="journal-content"></div>
+        </div>
+
+        <main>
+            <div class="emotion-form" id="emotion-form">
+                <div class="question-container" id="emotion-question">
+                    <h2>What emotion are you feeling?</h2>
+                    <p class="subtle-text">Select the emotion that best represents how you feel right now</p>
+                    <div class="emotion-options">
+                        <div class="emotion-option" data-emotion="joy">
+                            <div class="emotion-icon">😊</div>
+                            <span>Joy</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="sadness">
+                            <div class="emotion-icon">😢</div>
+                            <span>Sadness</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="anger">
+                            <div class="emotion-icon">😠</div>
+                            <span>Anger</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="anxiety">
+                            <div class="emotion-icon">😰</div>
+                            <span>Anxiety</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="fear">
+                            <div class="emotion-icon">😱</div>
+                            <span>Fear</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="shame">
+                            <div class="emotion-icon">😳</div>
+                            <span>Shame</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="guilt">
+                            <div class="emotion-icon">😔</div>
+                            <span>Guilt</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="grief">
+                            <div class="emotion-icon">💔</div>
+                            <span>Grief</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="emptiness">
+                            <div class="emotion-icon">🫥</div>
+                            <span>Emptiness</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="hope">
+                            <div class="emotion-icon">✨</div>
+                            <span>Hope</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="overwhelmed">
+                            <div class="emotion-icon">😵‍💫</div>
+                            <span>Overwhelmed</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="lonely">
+                            <div class="emotion-icon">🧍</div>
+                            <span>Loneliness</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="gratitude">
+                            <div class="emotion-icon">🙏</div>
+                            <span>Gratitude</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="numb">
+                            <div class="emotion-icon">😶</div>
+                            <span>Numbness</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="peace">
+                            <div class="emotion-icon">🌊</div>
+                            <span>Peace</span>
+                        </div>
+                        <div class="emotion-option" data-emotion="confused">
+                            <div class="emotion-icon">🤔</div>
+                            <span>Confusion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-container" id="color-question" style="display: none;">
+                    <h2>What color is this emotion?</h2>
+                    <p class="subtle-text">Choose a color that best represents how you feel</p>
+                    <div class="color-picker-container">
+                        <!-- <div class="color-picker-instructions">
+                            <p>Click on the color bar below to select a color</p>
+                        </div> -->
+                        <div class="color-label">
+                            <input type="color" id="color-input" value="#7c9885">
+                        </div>
+                        <div class="selected-color-display">
+                            <div class="color-preview" id="color-preview"></div>
+                            <p>Selected color: <span id="color-hex-value">#7c9885</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-container" id="shape-question" style="display: none;">
+                    <h2>What shape is this emotion?</h2>
+                    <p class="subtle-text">Select a shape that best represents this feeling</p>
+                    <div class="shape-options">
+                        <div class="shape-option" data-shape="circle">
+                            <div class="shape-preview circle"></div>
+                            <span>Circle</span>
+                        </div>
+                        <div class="shape-option" data-shape="square">
+                            <div class="shape-preview square"></div>
+                            <span>Square</span>
+                        </div>
+                        <div class="shape-option" data-shape="triangle">
+                            <div class="shape-preview triangle"></div>
+                            <span>Triangle</span>
+                        </div>
+                        <div class="shape-option" data-shape="star">
+                            <div class="shape-preview star"></div>
+                            <span>Star</span>
+                        </div>
+                        <div class="shape-option" data-shape="wave">
+                            <div class="shape-preview wave"></div>
+                            <span>Wave</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button id="prev-btn" class="nav-btn" style="display: none;">Previous</button>
+                    <button id="next-btn" class="nav-btn">Next</button>
+                </div>
+            </div>
+
+            <div id="visualization-container" style="display: none;">
+                <h2>Your Emotion Visualization</h2>
+                <div id="p5-canvas"></div>
+                <div class="emotion-summary">
+                    <p>Emotion: <span id="emotion-display"></span></p>
+                    <p>Color: <span id="color-display"></span></p>
+                    <p>Shape: <span id="shape-display"></span></p>
+                </div>
+                <div class="journal-summary">
+                    <h3>Your Journal Entry</h3>
+                    <div id="journal-viz-display" class="journal-content"></div>
+                </div>
+                <button id="save-visualization" class="save-btn">Save Visualization</button>
+                <button id="start-over" class="nav-btn">Start Over</button>
+            </div>
+        </main>
+
+        <footer>
+            <p class="quote">"Understanding your emotions is the first step toward healing."</p>
+        </footer>
+    </div>
+
+    <script src="../scripts/emotion-exploration.js"></script>
+</body>
+</html> 

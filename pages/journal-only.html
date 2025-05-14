@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Entry Page</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #4a4a4a;
+            background-color: #f0e6d9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #7c9885;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .journal-entry {
+            margin: 2rem 0;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Georgia', serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #7c9885;
+            box-shadow: 0 0 5px rgba(124, 152, 133, 0.3);
+        }
+        
+        button {
+            background-color: #7c9885;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        button:hover {
+            background-color: #6b8573;
+            transform: translateY(-2px);
+        }
+        
+        .message {
+            background-color: #7c9885;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+            text-align: center;
+        }
+        
+        .entries-list {
+            margin-top: 2rem;
+            border-top: 1px solid #ddd;
+            padding-top: 1rem;
+        }
+        
+        .entry {
+            background-color: #f9f5f0;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .entry-date {
+            color: #7c9885;
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Journal Space</h1>
+        <p>Take a moment to reflect on your feelings and thoughts. This is a safe space for self-expression.</p>
+        
+        <!-- Link back to door animation -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="door-only.html" style="color: #7c9885; text-decoration: none; font-weight: bold;">
+                ← Return to Door Animation
+            </a>
+        </div>
+        
+        <div class="journal-entry">
+            <textarea id="journalText" placeholder="How are you feeling today? Feel free to express yourself here..."></textarea>
+            <button id="saveButton">Save Your Thoughts</button>
+            <div class="message" id="confirmMessage">Your thoughts have been saved.</div>
+        </div>
+        
+        <div class="entries-list" id="entriesList">
+            <h2>Previous Entries</h2>
+            <!-- Entries will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const journalText = document.getElementById('journalText');
+            const saveButton = document.getElementById('saveButton');
+            const confirmMessage = document.getElementById('confirmMessage');
+            const entriesList = document.getElementById('entriesList');
+            
+            // Load previous entries
+            displayEntries();
+            
+            // Save new entry
+            saveButton.addEventListener('click', function() {
+                const text = journalText.value.trim();
+                
+                if (text !== '') {
+                    const entry = {
+                        text: text,
+                        date: new Date().toISOString()
+                    };
+                    
+                    // Get existing entries or create empty array
+                    const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+                    
+                    // Add new entry
+                    entries.push(entry);
+                    
+                    // Save to localStorage
+                    localStorage.setItem('journalEntries', JSON.stringify(entries));
+                    
+                    // Display confirmation
+                    confirmMessage.style.display = 'block';
+                    setTimeout(function() {
+                        confirmMessage.style.display = 'none';
+                    }, 3000);
+                    
+                    // Clear input
+                    journalText.value = '';
+                    
+                    // Refresh entries display
+                    displayEntries();
+                }
+            });
+            
+            // Display saved entries
+            function displayEntries() {
+                const entries = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+                
+                // Clear previous entries
+                const entriesContainer = document.createElement('div');
+                entriesContainer.innerHTML = '<h2>Previous Entries</h2>';
+                
+                if (entries.length === 0) {
+                    const noEntries = document.createElement('p');
+                    noEntries.textContent = 'No entries yet. Start journaling to see your entries here.';
+                    entriesContainer.appendChild(noEntries);
+                } else {
+                    // Add entries in reverse order (newest first)
+                    entries.slice().reverse().forEach(function(entry) {
+                        const entryDiv = document.createElement('div');
+                        entryDiv.className = 'entry';
+                        
+                        const dateDiv = document.createElement('div');
+                        dateDiv.className = 'entry-date';
+                        dateDiv.textContent = new Date(entry.date).toLocaleString();
+                        
+                        const textDiv = document.createElement('div');
+                        textDiv.textContent = entry.text;
+                        
+                        entryDiv.appendChild(dateDiv);
+                        entryDiv.appendChild(textDiv);
+                        entriesContainer.appendChild(entryDiv);
+                    });
+                }
+                
+                // Replace existing entries list
+                entriesList.innerHTML = '';
+                entriesList.appendChild(entriesContainer);
+            }
+        });
+    </script>
+</body>
+</html> 

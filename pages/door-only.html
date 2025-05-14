@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Door Animation Only</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Variables */
+        :root {
+            --room-color: #f0e6d9;
+            --door-color: #8b5e3c;
+            --door-frame-color: #6e4c30;
+            --accent-color: #7c9885;
+            --text-color: #4a4a4a;
+        }
+        
+        /* Global */
+        html, body {
+            height: 100%;
+            font-family: 'Georgia', serif;
+            background-color: var(--room-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        /* Scroll container */
+        .content-container {
+            height: 300vh;
+            position: relative;
+        }
+        
+        /* Entrance */
+        .entrance {
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--room-color);
+            z-index: 2;
+            perspective: 2000px;
+        }
+        
+        .door-frame {
+            height: 90vh;
+            width: 60vw;
+            max-width: 600px;
+            background-color: var(--door-frame-color);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .door {
+            height: 100%;
+            width: 100%;
+            background-color: var(--door-color);
+            border-radius: 8px 8px 0 0;
+            position: absolute;
+            transform-origin: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+        
+        .door-handle {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            width: 20px;
+            height: 60px;
+            background-color: #b8860b;
+            border-radius: 10px;
+            transform: translateY(-50%) translateZ(2px);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .door-handle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: #b8860b;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .door-text {
+            color: #f0e6d9;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 2rem;
+            max-width: 80%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transform: translateZ(1px);
+        }
+        
+        /* Room */
+        .therapy-room {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--room-color);
+            z-index: 1;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .therapy-room.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .room-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <!-- Door entrance -->
+        <div class="entrance">
+            <div class="door-frame">
+                <div class="door">
+                    <div class="door-handle"></div>
+                    <div class="door-text">Take a deep breath and scroll down to enter</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Simple room -->
+        <div class="therapy-room">
+            <div class="room-content">
+                <h1>Welcome to Your Safe Space</h1>
+                <p>You've successfully opened the door.</p>
+                <p>This is a simplified version with just the door animation.</p>
+                
+                <!-- Link to journal page -->
+                <div style="margin-top: 30px;">
+                    <a href="journal-only.html" style="display: inline-block; background-color: #7c9885; color: white; 
+                       text-decoration: none; padding: 15px 30px; border-radius: 25px; font-weight: bold;">
+                        Access Your Journal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple scroll-based animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const entrance = document.querySelector('.entrance');
+            const door = document.querySelector('.door');
+            const doorFrame = document.querySelector('.door-frame');
+            const therapyRoom = document.querySelector('.therapy-room');
+            
+            function updateAnimation() {
+                const scrollY = window.scrollY;
+                const totalHeight = 2000; // Fixed height for consistent behavior
+                let scrollPercent = (scrollY / totalHeight) * 100;
+                scrollPercent = Math.min(100, Math.max(0, scrollPercent)); // Clamp between 0-100
+                
+                // Door phase (0-30%)
+                if (scrollPercent <= 30) {
+                    // Door rotation
+                    const doorRotation = (scrollPercent / 30) * 85;
+                    door.style.transform = `rotateY(-${doorRotation}deg) translateZ(${doorRotation / 4}px)`;
+                    
+                    // Frame scaling
+                    const frameScale = 1 + (scrollPercent / 30) * 0.2;
+                    doorFrame.style.transform = `scale(${frameScale}) translateZ(${(frameScale - 1) * 30}px)`;
+                    
+                    // Entrance opacity
+                    entrance.style.opacity = 1;
+                    
+                    // Room visibility
+                    if (doorRotation > 20) {
+                        therapyRoom.classList.add('visible');
+                        therapyRoom.style.transform = 'scale(0.7) translateZ(-60px)';
+                    } else {
+                        therapyRoom.classList.remove('visible');
+                    }
+                } 
+                // Room phase (30-100%)
+                else {
+                    // Door fully open
+                    door.style.transform = 'rotateY(-85deg) translateZ(21.25px)';
+                    doorFrame.style.transform = 'scale(1.2) translateZ(6px)';
+                    
+                    // Fade entrance
+                    const entranceOpacity = Math.max(0, 1 - ((scrollPercent - 30) / 30));
+                    entrance.style.opacity = entranceOpacity;
+                    
+                    // Show room
+                    therapyRoom.classList.add('visible');
+                    
+                    // Scale room
+                    const roomProgress = Math.min(1, (scrollPercent - 30) / 70);
+                    const roomScale = 0.7 + (roomProgress * 0.3);
+                    const zTranslate = -60 + (roomProgress * 60);
+                    
+                    therapyRoom.style.transform = `scale(${roomScale}) translateZ(${zTranslate}px)`;
+                }
+            }
+            
+            // Scroll handler
+            window.addEventListener('scroll', updateAnimation);
+            
+            // Initial state
+            updateAnimation();
+        });
+    </script>
+</body>
+</html> 
