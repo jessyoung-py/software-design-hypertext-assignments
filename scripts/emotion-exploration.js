@@ -376,7 +376,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         y: p.random(-500, p.height),
                         length: p.random(40, 80),  // Much longer for dripping effect
                         speed: p.random(5, 8),    // Slower for dripping window effect
-                        thickness: p.random(2, 4)  // Thicker for visibility
+                        thickness: p.random(2, 4),  // Thicker for visibility
+                        showShape: p.random() < 0.3, // 30% chance to show shape along raindrop
+                        shapeSize: p.random(5, 12) // Size of shape if shown
                     });
                 }
             }
@@ -402,11 +404,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         raindrop.y + raindrop.length
                     );
                     
+                    // Add shapes occasionally along the raindrop path
+                    if (raindrop.showShape) {
+                        p.noStroke();
+                        p.fill(userColor);
+                        
+                        // Draw shape at the top of the raindrop
+                        drawShape(raindrop.x, raindrop.y, raindrop.shapeSize, shape);
+                        
+                        // Draw shape at the middle of the raindrop
+                        drawShape(raindrop.x, raindrop.y + raindrop.length/2, raindrop.shapeSize * 0.8, shape);
+                    }
+                    
                     // Simple splash when rain hits bottom
                     if (raindrop.y + raindrop.length > p.height - 5) {
                         p.noStroke();
                         p.fill(userColor); // Use the same parsed color
-                        p.ellipse(raindrop.x, p.height, raindrop.thickness * 8, raindrop.thickness);  // Wider splash
+                        
+                        // Use the selected shape for the splash instead of just an ellipse
+                        const splashSize = raindrop.thickness * 8;
+                        drawShape(raindrop.x, p.height - splashSize/2 - 5, splashSize, shape);
                     }
                     
                     // Update position normally
@@ -869,15 +886,38 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Draw a wave shape
             function drawWave(x, y, size) {
+                const radius = size/2;
+                
+                p.push();
+                p.translate(x, y);
+                
+                // Draw a cloud-like squiggle using multiple overlapping circles
+                // Draw a few overlapping circles to create a cloud-like shape
+                const numBumps = 6;
+                const bumpSize = radius * 0.65;
+                
                 p.beginShape();
-                for (let i = 0; i < p.TWO_PI; i += 0.1) {
-                    let xPos = x + p.cos(i) * size/2;
-                    let yPos = y + p.sin(i) * size/2;
-                    // Add a wavy effect
-                    yPos += p.sin(i * 5) * size/10;
-                    p.vertex(xPos, yPos);
+                
+                // Create the main points around the cloud shape
+                for (let i = 0; i < numBumps; i++) {
+                    const angle = p.map(i, 0, numBumps, 0, p.TWO_PI);
+                    const bumpRadius = radius + p.sin(angle * 3) * (radius * 0.2);
+                    const bx = p.cos(angle) * bumpRadius;
+                    const by = p.sin(angle) * bumpRadius;
+                    
+                    // Add several points for each bump to make it smoother
+                    const arcLength = p.TWO_PI / numBumps;
+                    for (let j = 0; j <= 4; j++) {
+                        const subAngle = angle + (j * arcLength / 4);
+                        const offRadius = bumpRadius + p.sin(subAngle * 8) * (radius * 0.1);
+                        const px = p.cos(subAngle) * offRadius;
+                        const py = p.sin(subAngle) * offRadius;
+                        p.curveVertex(px, py);
+                    }
                 }
+                
                 p.endShape(p.CLOSE);
+                p.pop();
             }
             
             // Particle class for default behavior
